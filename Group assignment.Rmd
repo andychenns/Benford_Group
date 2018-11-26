@@ -42,3 +42,37 @@ suspects
 ```
 
 From the suspect function, we can see that Alabama state has a handful of data that are suspicious.
+
+
+
+
+
+## Chinese city population data
+
+#data source: http://www.citypopulation.de/China-UA.html
+
+```{r}
+
+library(tidyverse)
+library(benford.analysis) # loads package data(corporate.payment) # loads data
+library(readxl)
+chinese_cencus <- read_excel("chinese cencus.xlsx")
+df <- na.omit(chinese_cencus)
+df1 <- select(df, Population, Population__1, Population__2)
+
+
+
+bfd.pop <- benford(as.numeric(df1$Population),
+                  number.of.digits = 1)
+plot(bfd.pop) #Census 1990
+bfd.pop1 <- benford(as.numeric(df1$Population__1),
+                   number.of.digits = 1)
+plot(bfd.pop1) #Census 2000
+bfd.pop2 <- benford(as.numeric(df1$Population__2),
+                    number.of.digits = 1)
+plot(bfd.pop2) #Census 2010
+```
+
+The results do not well fit benford law. The reason could be:
+1. Dataset is relatively small (132 obs only)
+2. Data is not complete. This dataset only contains population of those cities over 750,000, and they are urban populations.
