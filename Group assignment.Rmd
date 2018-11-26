@@ -1,0 +1,16 @@
+---
+title: "Group assignment"
+author: "Longhao Chen,"
+date: "11/26/2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(benford.analysis) # loads package data(corporate.payment) # loads data
+
+```
+
