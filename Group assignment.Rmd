@@ -17,10 +17,12 @@ d <- data(package = "benford.analysis")
 #d$results[, "Item"]
 data(census.2009)
 
-census <- benford(census.2009$pop.2009)
-plot(census)
+census1 <- benford(census.2009$pop.2009, number.of.digits = 1, sign = "positive", discrete = TRUE, round = 3)
+census2 <- benford(census.2009$pop.2009, number.of.digits = 2, sign = "positive", discrete = TRUE, round = 3)
+plot(census1)
+plot(census2)
 ```
-
+By looking at the general information of the dataset. We can see that the values of mean, variance, Ex.Kurtosis and skewness well match with the expected values of 0.5
 ```{r}
 census
 ```
