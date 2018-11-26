@@ -1,6 +1,6 @@
 ---
 title: "Group assignment"
-author: "Longhao Chen,"
+author: "Dave Anderson, Longhao Chen, Tingrui Huang, Yudi Mao"
 date: "11/26/2018"
 output: pdf_document
 ---
@@ -11,6 +11,25 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 library(benford.analysis) # loads package data(corporate.payment) # loads data
+#This step is to find datasets provided in the package.
+d <- data(package = "benford.analysis")
+## names of data sets in the package
+#d$results[, "Item"]
+data(census.2009)
 
+census <- benford(census.2009$pop.2009)
+plot(census)
 ```
 
+```{r}
+census
+```
+
+
+```{r}
+#This step is to find the suspicious targets.
+suspects <- getSuspects(census, census.2009)
+suspects
+```
+
+From the suspect function, we can see that Alabama state has a handful of data that are suspicious.
