@@ -1,5 +1,5 @@
 ---
-title: "Group assignment"
+title: "Benford Group assignment"
 author: "Dave Anderson, Longhao Chen, Tingrui Huang, Yudi Mao"
 date: "11/26/2018"
 output: pdf_document
@@ -9,9 +9,72 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r, echo=FALSE, message=FALSE}
+library(benford.analysis)
+library(tidyverse)
+library(BenfordTests)
+```
+#Fibonacci Numbers
+
+To investigate the effect of increasing sample size on relation to Benford's Law, I chose to use Fibonacci numbers. I started with the first 100 numbers of the sequence and performed Benford's analysis on the first two leading digits.
+
+##100 Numbers
+```{r, echo=FALSE}
+####100 Fibonacci Numbers
+num <- 100
+fib <- numeric(num)
+fib[1] <- 1
+fib[2] <- 1
+for (i in 3:num) { 
+  fib[i] <- fib[i-1]+fib[i-2]
+} 
+
+bfd1 <- benford(fib,number.of.digits = 2)
+plot(bfd1)
+head(suspectsTable(bfd1),10)
+```
+
+There is clearly a staggered pattern in the numbers, which creates a very interesting pattern on the chi-squared difference plot. 
+
+##500 Numbers
+```{r,echo=FALSE}
+num2 <- 500
+fib2 <- numeric(num2)
+fib2[1] <- 1
+fib2[2] <- 1
+for(i in 3:num2) {
+  fib2[i] <- fib2[i-1]+fib2[i-2]
+}
+
+bfd2 <- benford(fib2)
+plot(bfd2)
+```
+
+Increasing our numbers from 100 to 500 has made a big difference in our analysis. The distribution of digits seems to conform to Benford very well. The pattern in the chi-squared difference is still evident, but the differences have decreased dramtically. 
+
+##1,000 numbers
+```{r,echo=FALSE}
+###1,000 Fibonacci Numbers
+num3 <- 1000
+fib3 <- numeric(num3)
+fib3[1] <- 1
+fib3[2] <- 1
+for (i in 3:num3) {
+  fib3[i] <- fib3[i-1]+fib3[i-2]
+}
+bfd3 <- benford(fib3)
+plot(bfd3)
+
+head(suspectsTable(bfd3),10)
+
+```
+
+Interestingly, it seems as if increasing numbers to 1,000 is actually further from Benford's distribution in some ways. Overall, the pattern from the chi-squared difference has decreased, and most digits are closer to the law, but some digits have strayed further away. It is interesting that many multiples of tens are seen in the suspects list. 
+
+\newpage
+#Census Data
 ```{r}
-library(benford.analysis) # loads package data(corporate.payment) # loads data
-#This step is to find datasets provided in the package.
+
 d <- data(package = "benford.analysis")
 ## names of data sets in the package
 #d$results[, "Item"]
